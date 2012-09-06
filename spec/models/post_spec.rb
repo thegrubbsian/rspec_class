@@ -40,7 +40,7 @@ describe Post do
     end
 
     it "require a status" do
-      post = Post.new
+      post = Post.new(status: nil)
       post.should_not be_valid
       post.errors.keys.should include(:status)
     end
