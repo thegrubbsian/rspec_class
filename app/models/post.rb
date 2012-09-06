@@ -10,4 +10,8 @@ class Post < ActiveRecord::Base
     self.save
   end
 
+  def published?
+    status == "published"
+  end
+
 end

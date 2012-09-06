@@ -27,9 +27,18 @@ describe Post do
 
   describe ".published?" do
 
-    it "returns true when the post is published"
+    before do
+      @post = Post.new(status: "draft")
+    end
 
-    it "returns false when the post is not published"
+    it "returns true when the post is published" do
+      @post.status = "published"
+      @post.should be_published
+    end
+
+    it "returns false when the post is not published" do
+      @post.should_not be_published
+    end
 
   end
 
