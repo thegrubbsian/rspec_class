@@ -25,30 +25,30 @@ describe Post do
 
   end
 
+  describe ".published?" do
+
+    it "returns true when the post is published"
+
+    it "returns false when the post is not published"
+
+  end
+
   describe "validations" do
 
-    it "require a title" do
-      post = Post.new
-      post.should_not be_valid
-      post.errors.keys.should include(:title)
+    before do
+      @post = Post.new(title: "foo", body: "bar", status: "published", author_id: 1)
     end
 
-    it "require a body" do
-      post = Post.new
-      post.should_not be_valid
-      post.errors.keys.should include(:body)
+    it "base post should be valid" do
+      @post.should be_valid
     end
 
-    it "require a status" do
-      post = Post.new(status: nil)
-      post.should_not be_valid
-      post.errors.keys.should include(:status)
-    end
-
-    it "require a author_id" do
-      post = Post.new
-      post.should_not be_valid
-      post.errors.keys.should include(:author_id)
+    [:title, :body, :status, :author_id].each do |field|
+      it "requires a #{field}" do
+        @post.send("#{field}=".to_sym, nil)
+        @post.should_not be_valid
+        @post.errors.keys.should include(field)
+      end
     end
 
   end
